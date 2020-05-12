@@ -22,15 +22,14 @@ You must have python3.7.4 and above install. Other required packages can be aqui
 `python RESTful_API.py`
 
 ### Data format
-Data format **POST** to the API must follow a json format as below:
-`
+Data format **POST** to the API must follow a json format as below:<br>
 {
-"premium"      : 250,
-'issue_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',
-'start_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',
-'end_date'     : 'yyyy-mm-dd HH:MM:SS.ssss',
-'request_date' : 'yyyy-mm-dd HH:MM:SS.ssss',
-'PRD_GRP_FIN'  : 'E-comm'
+"premium"      : 250,<br>
+'issue_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
+'start_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
+'end_date'     : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
+'request_date' : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
+'PRD_GRP_FIN'  : 'E-comm'<br>
 }
-`
+`<br>
 Example are in `request.py`
