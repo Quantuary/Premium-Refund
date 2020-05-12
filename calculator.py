@@ -5,11 +5,9 @@ Created on Mon May 11 21:28:36 2020
 
 @author: marcus
 """
-from flask import Flask, request, jsonify, render_template
-from datetime import datetime
+
 import numpy as np
 
-app = Flask(__name__)
 
 def y(a,b,lead_time,time_used):
     n = 2* np.log(
@@ -59,41 +57,3 @@ def function(issue_date,start_date,end_date,request_date):
         earned = lead_time_portion + startday_portion + duration_portion/duration*(time_used-lead_time)
     
     return earned
-
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/calculate',methods=['POST'])
-def calculate():
-    '''
-    For rendering results on HTML GUI
-    '''
-    int_features = [x for x in request.form.values()]
-    premium = float(int_features[0])
-    issue_date = datetime.strptime(int_features[1],'%Y-%m-%d').date()
-    start_date = datetime.strptime(int_features[2],'%Y-%m-%d').date()
-    end_date = datetime.strptime(int_features[3],'%Y-%m-%d').date()
-    request_date = datetime.strptime(int_features[4],'%Y-%m-%d').date()
-    
-    earned = function(issue_date,start_date,end_date,request_date)
-    refund = round(premium *(1-earned),2)
-
-
-    return render_template('index.html', refund_amount='Eligible Refund Amount $ {}'.format(refund))
-    #return print(int_features)
-
-@app.route('/calculate_api',methods=['POST'])
-def calculate_api():
-    '''
-    For direct API calls trought request
-    '''
-    data = request.get_json(force=True)
-
-    output = prediction[0]
-    return jsonify({'Result':output})
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
