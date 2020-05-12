@@ -1,41 +1,36 @@
-## ML-Model-Flask-Deployment
-This is a premium refund calculator demo project to elaborate how Machine Learn Models are deployed on production using Flask API
+## Premium Refund Calculator
+This calculator accurately calculate the unearned premium based on **FOUR** input parameters by applying the company reserving method.
 
 ### Prerequisites
-You must have Scikit Learn, Pandas (for Machine Leraning Model) and Flask (for API) installed.
+You must have python3.7.4 and above install. Other required packages can be aquired via:<br>
+`pip install -r requirements.txt`.
 
-### Project Structure
-This project has four major parts :
-1. model.py - This contains code fot our Machine Learning model to predict employee salaries absed on trainign data in 'hiring.csv' file.
-2. app.py - This contains Flask APIs that receives employee details through GUI or API calls, computes the precited value based on our model and returns it.
-3. request.py - This uses requests module to call APIs already defined in app.py and dispalys the returned value.
-4. templates - This folder contains the HTML template to allow user to enter employee detail and displays the predicted employee salary.
+### Parameter required are:
+1. Premium - The original GWP/Premmium charged to the policyholders/customers.
+2. Issue Date - The date when the policy is underwritten.
+3. Start Date - The initial start date of the trip/journey.
+4. End Date - The expiry date of the policy or when the policy become ineffective.
+5. Request Date - The date in which refund begain to take effect from.
+6. Product Group Finance - Segmentation to
 
-### Running the project
-1. Ensure that you are in the project home directory. Create the machine learning model by running below command -
-```
-python model.py
-```
-This would create a serialized version of our model into a file model.pkl
 
-2. Run app.py using below command to start Flask API
-```
-python app.py
-```
-By default, flask will run on port 5000.
 
-3. Navigate to URL http://localhost:5000
+### Running Web Application
+`python webapp.py`
 
-You should be able to view the homepage as below :
-![alt text](http://www.thepythonblog.com/wp-content/uploads/2019/02/Homepage.png)
+### Running RESTful API as a service
+`python RESTful_API.py`
 
-Enter valid numerical values in all 3 input boxes and hit Predict.
-
-If everything goes well, you should  be able to see the predcited salary vaule on the HTML page!
-![alt text](http://www.thepythonblog.com/wp-content/uploads/2019/02/Result.png)
-
-4. You can also send direct POST requests to FLask API using Python's inbuilt request module
-Run the beow command to send the request with some pre-popuated values -
-```
-python request.py
-```
+### Data format
+Data format **POST** to the API must follow a json format as below:
+`
+{
+"premium"      : 250,
+'issue_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',
+'start_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',
+'end_date'     : 'yyyy-mm-dd HH:MM:SS.ssss',
+'request_date' : 'yyyy-mm-dd HH:MM:SS.ssss',
+'PRD_GRP_FIN'  : 'E-comm'
+}
+`
+Example are in `request.py`
