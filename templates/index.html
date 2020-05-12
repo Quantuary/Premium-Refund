@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+</head>
+
+<body>
+ <div class="login">
+	<h1>Refund Calculator</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('calculate')}}"method="post">
+		<input type="number" step="0.01" name="premium" placeholder="Original Premium" required="required" />
+    	<input type="text" name="issue_date" placeholder="Policy Issue Date (yyyy-mm-dd)" required="required" />
+        <input type="text" name="start_date" placeholder="Trip Start Date (yyyy-mm-dd)" required="required" />
+		<input type="text" name="end_date" placeholder="Policy End Date (yyyy-mm-dd)" required="required" />
+		<input type="text" name="request_date" placeholder="Request Date (yyyy-mm-dd)" required="required" />
+		<!--input type="text" name="PRD_GRP_FIN" placeholder="Product Group Finance" required="required" /-->
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Calculate</button>
+    </form>
+
+   <br>
+   <br>
+   {{ refund_amount }}
+
+ </div>
+
+
+</body>
+</html>
