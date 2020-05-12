@@ -11,7 +11,7 @@ You must have python3.7.4 and above install. Other required packages can be aqui
 3. Start Date - The initial start date of the trip/journey.
 4. End Date - The expiry date of the policy or when the policy become ineffective.
 5. Request Date - The date in which refund begain to take effect from.
-6. Product Group Finance - Segmentation to
+6. Product Group Finance - Segmentation information provided by B.I.
 
 
 
@@ -25,10 +25,10 @@ You must have python3.7.4 and above install. Other required packages can be aqui
 Data format **POST** to the API must follow a json format as below:<br>
 {
 "premium"      : 250,<br>
-'issue_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
-'start_date'   : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
-'end_date'     : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
-'request_date' : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
-'PRD_GRP_FIN'  : 'E-comm'<br>
+'issue_date'   : 'yyyy-mm-dd HH:MM:SS',<br>
+'start_date'   : 'yyyy-mm-dd HH:MM:SS',<br>
+'end_date'     : 'yyyy-mm-dd HH:MM:SS',<br>
+'request_date' : 'yyyy-mm-dd HH:MM:SS',<br>
+'prd_grp_fin'  : 'E-comm'<br>
 }<br>
 Test example is in `request.py`

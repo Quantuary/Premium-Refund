@@ -26,8 +26,9 @@ def calculate():
     start_date = datetime.strptime(request.form['start_date'],'%Y-%m-%d')
     end_date = datetime.strptime(request.form['end_date'],'%Y-%m-%d')
     request_date = datetime.strptime(request.form['request_date'],'%Y-%m-%d')
+    prd_grp_fin = request.form['prd_grp_fin']
     
-    earned = cal.function(issue_date,start_date,end_date,request_date)
+    earned = cal.function(issue_date,start_date,end_date,request_date,prd_grp_fin)
     refund = round(premium *(1-earned),2)
 
 

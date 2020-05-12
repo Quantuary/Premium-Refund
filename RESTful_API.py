@@ -19,12 +19,13 @@ class calculate_api(Resource):
     def post(self):
         data = request.get_json(force=True)
         premium = data['premium']
-        issue_date = datetime.strptime(data['issue_date'],'%Y-%m-%d %H:%M:%S.%f')
-        start_date = datetime.strptime(data['start_date'],'%Y-%m-%d %H:%M:%S.%f')
-        end_date = datetime.strptime(data['end_date'],'%Y-%m-%d %H:%M:%S.%f')
-        request_date = datetime.strptime(data['request_date'],'%Y-%m-%d %H:%M:%S.%f')
+        issue_date = datetime.strptime(data['issue_date'],'%Y-%m-%d %H:%M:%S')
+        start_date = datetime.strptime(data['start_date'],'%Y-%m-%d %H:%M:%S')
+        end_date = datetime.strptime(data['end_date'],'%Y-%m-%d %H:%M:%S')
+        request_date = datetime.strptime(data['request_date'],'%Y-%m-%d %H:%M:%S')
+        prd_grp_fin = data['prd_grp_fin']
     
-        earned = cal.function(issue_date,start_date,end_date,request_date)
+        earned = cal.function(issue_date,start_date,end_date,request_date,prd_grp_fin)
         refund = round(premium *(1-earned),2)
 
 
