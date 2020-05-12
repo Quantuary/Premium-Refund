@@ -30,6 +30,5 @@ Data format **POST** to the API must follow a json format as below:<br>
 'end_date'     : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
 'request_date' : 'yyyy-mm-dd HH:MM:SS.ssss',<br>
 'PRD_GRP_FIN'  : 'E-comm'<br>
-}
-`<br>
-Example are in `request.py`
+}<br>
+Test example is in `request.py`
