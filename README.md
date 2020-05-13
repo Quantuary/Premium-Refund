@@ -4,6 +4,7 @@ This calculator accurately calculate the unearned premium based on **SEVEN** inp
 ### Running RESTful API service
 
 **Prerequisites**
+================
 You must have python3.7.4 and above install. Other required packages can be aquired via:<br>
 `pip install -r requirements.txt`<br>
 
@@ -19,8 +20,8 @@ The service take a json post request and returned the refund amount. The data **
 'start_date'   : 'yyyy-mm-dd HH:MM:SS',
 'end_date'     : 'yyyy-mm-dd HH:MM:SS',
 'request_date' : 'yyyy-mm-dd HH:MM:SS',
-'prd_grp_fin'  : 'E-comm'
-'policy_id'    : '12334'
+'prd_grp_fin'  : 'E-comm'.
+'policy_id'    : 'XXXX'
 }`<br>
 
 Example of how to post a request via python is in `request.py`.
