@@ -46,9 +46,8 @@ def log_or_linear(LT_TT,startday_portion,prd_grp_fin):
     if LT_TT>5:
         alpha = alpha_log[prd_grp_fin]
         coef = coef_log[prd_grp_fin]
-        duration_portion =(alpha*np.log(min(55.3,LT_TT)+coef
-                                      )
-                           )*(1-startday_portion)
+        duration_portion =(alpha*np.log(min(55.3,LT_TT))+coef
+                                      )*(1-startday_portion)
     else:
         alpha = alpha_linear[prd_grp_fin]
         duration_portion = (1-alpha*LT_TT)*(1-startday_portion)
