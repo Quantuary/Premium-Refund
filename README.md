@@ -13,7 +13,7 @@ To run the service:<br>
 
 ### Data format
 The service take a json post request and returned the refund amount. The data **must** be in the the following structure:<br>
-`{"premium"      : 250,`<br>
+`{"premium"   : $$$.$$,`<br>
 `'issue_date'   : 'yyyy-mm-dd HH:MM:SS',`<br>
 `'start_date'   : 'yyyy-mm-dd HH:MM:SS',`<br>
 `'end_date'     : 'yyyy-mm-dd HH:MM:SS',`<br>
@@ -25,13 +25,13 @@ Example of how to post a request via python is in `request.py`.
 
 
 ### Definition of Parameters:
-1. premium - The original GWP/Premmium charged to the policyholders/customers.
-2. issue_date - The date when the policy is underwritten.
-3. start_date - The initial start date of the trip/journey.
-4. end_date - The expiry date of the policy or when the policy become ineffective.
-5. request_date - The date in which refund begain to take effect from.
-6. prd_grp_fin - Segmentation information provided by B.I.
-7. policy_id - The identifying id for the request policy. (This is for logging and debugging purpose)
+1. `premium`      - The original GWP/Premmium charged to the policyholders/customers.
+2. `issue_date`   - The date when the policy is underwritten.
+3. `start_date`   - The initial start date of the trip/journey.
+4. `end_date`     - The expiry date of the policy or when the policy become ineffective.
+5. `request_date` - The date in which refund begain to take effect from.
+6. `prd_grp_fin`  - Segmentation information provided by B.I.
+7. `policy_id`    - The identifying id for the request policy. (This is for logging and debugging purpose)
 
 
 ### Running Web Application
