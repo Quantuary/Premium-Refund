@@ -13,14 +13,13 @@ To run the service:<br>
 
 ### Data format
 The service take a json post request and returned the refund amount. The data **must** be in the the following structure:<br>
-`{"premium"      : 250,`
-`'issue_date'   : 'yyyy-mm-dd HH:MM:SS',`
-'start_date'   : 'yyyy-mm-dd HH:MM:SS',
-'end_date'     : 'yyyy-mm-dd HH:MM:SS',
-'request_date' : 'yyyy-mm-dd HH:MM:SS',
-'prd_grp_fin'  : 'E-comm'.
-'policy_id'    : 'XXXX'
-}`<br>
+`{"premium"      : 250,`<br>
+`'issue_date'   : 'yyyy-mm-dd HH:MM:SS',`<br>
+`'start_date'   : 'yyyy-mm-dd HH:MM:SS',`<br>
+`'end_date'     : 'yyyy-mm-dd HH:MM:SS',`<br>
+`'request_date' : 'yyyy-mm-dd HH:MM:SS',`<br>
+`'prd_grp_fin'  : 'E-comm',`<br>
+`'policy_id'    : 'XXXX'}`<br>
 
 Example of how to post a request via python is in `request.py`.
 
