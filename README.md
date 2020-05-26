@@ -19,7 +19,7 @@ The service take a json post request and returned the refund amount. The data **
 `'end_date'     : 'yyyy-mm-dd HH:MM:SS',`<br>
 `'request_date' : 'yyyy-mm-dd HH:MM:SS',`<br>
 `'prd_grp_fin'  : 'E-comm',`<br>
-`'policy_id'    : 'XXXX'}`<br>
+`'policy_id'    : 'XXXXX'}`<br>
 
 Example of how to post a request via python is in `request.py`.
 
