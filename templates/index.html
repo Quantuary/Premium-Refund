@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html >
-<!--From https://codepen.io/frytyler/pen/EGdtg-->
+
 <head>
   <meta charset="UTF-8">
   <title>ML API</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   
 </head>
@@ -17,14 +13,31 @@
 	<h1>Refund Calculator</h1>
 
      <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('calculate')}}"method="post">
-		<input type="number" name="premium" placeholder="Original Premium" required="required" />
-    	<input type="text" name="issue_date" placeholder="Policy Issue Date (yyyy-mm-dd)" required="required" />
-        <input type="text" name="start_date" placeholder="Trip Start Date (yyyy-mm-dd)" required="required" />
-		<input type="text" name="end_date" placeholder="Policy End Date (yyyy-mm-dd)" required="required" />
-		<input type="text" name="request_date" placeholder="Request Date (yyyy-mm-dd)" required="required" />
-		<input type="text" name="prd_grp_fin" placeholder="Product Group Finance" required="required" /-->
-
+    <form action="{{ url_for('calculate')}}"method="post" id='myform'>
+		<label>Original Premium</label>
+			<input type="number" name="premium"  required="required" />
+    	
+    	<label>Policy Issue Date</label>
+			<input type="date" name="issue_date" required="required" />
+        
+        <label>Trip Start Date</label>
+			<input type="date" name="start_date" required="required" />
+		
+		<label>Policy End Date</label>
+			<input type="date" name="end_date" required="required" />
+		
+		<label>Request Date</label>
+			<input type="date" name="request_date" required="required" />
+		
+		<label>Product Group Finance</label>
+			<select name="prd_grp_fin" id="prd_grp_fin" required="required">
+					<option selected>E-comm</option>
+					<option>Ticket</option>
+					<option>Corporate</option>
+					<option>Cancellation</option>
+					<option>Trad & Other</option>
+			</select>
+			
         <button type="submit" class="btn btn-primary btn-block btn-large">Calculate</button>
     </form>
 
