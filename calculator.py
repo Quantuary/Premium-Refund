@@ -66,11 +66,10 @@ def earn_duration(LT_TT,startday_portion,prd_grp_fin):
         if LT_TT>0.1:
             alpha = alpha_log[prd_grp_fin]
             coef = coef_log[prd_grp_fin]
-            duration_portion =(alpha*np.log(min(55.3,LT_TT)+coef
-                                      )
-                           )*(1-startday_portion)
-        else:
-            0
+            duration_portion =(alpha* np.log(min(55.3,LT_TT) )+coef
+                                      )*(1-startday_portion)
+        else: # required confirmation from reserving!
+            duration_portion = 1 *(1-parm_startday[prd_grp_fin])
             
     elif prd_grp_fin == "Ticket":
         duration_portion=0
@@ -91,10 +90,10 @@ def function(issue_date,start_date,end_date,request_date,prd_grp_fin):
     
     startday_portion = parm_startday[prd_grp_fin]
     LT_TT = lead_time/duration 
-    
-    
+
     duration_portion = earn_duration(LT_TT,startday_portion,prd_grp_fin)
-    lead_time_portion = 1-duration_portion-startday_portion
+    lead_time_portion = max((1-duration_portion-startday_portion),0) # prevent leadtime portion going negative due to error
+
     
     if prd_grp_fin != "Ticket":
         y = earn_LT(a,b,lead_time,time_used)
