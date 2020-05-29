@@ -71,8 +71,6 @@ def earn_duration(LT_TT,startday_portion,prd_grp_fin):
         else: # required confirmation from reserving!
             duration_portion = 1 *(1-parm_startday[prd_grp_fin])
             
-    elif prd_grp_fin == "Ticket":
-        duration_portion=0
     elif prd_grp_fin == "Corporate":
         duration_portion=1
     
@@ -89,13 +87,12 @@ def function(issue_date,start_date,end_date,request_date,prd_grp_fin):
     time_used = (request_date-issue_date).days
     
     startday_portion = parm_startday[prd_grp_fin]
-    LT_TT = lead_time/duration 
 
-    duration_portion = earn_duration(LT_TT,startday_portion,prd_grp_fin)
-    lead_time_portion = max((1-duration_portion-startday_portion),0) # prevent leadtime portion going negative due to error
-
-    
     if prd_grp_fin != "Ticket":
+        LT_TT = lead_time/duration 
+        duration_portion = earn_duration(LT_TT,startday_portion,prd_grp_fin)
+        lead_time_portion = max((1-duration_portion-startday_portion),0) # prevent leadtime portion going negative due to error
+        
         y = earn_LT(a,b,lead_time,time_used)
         if time_used<lead_time:
             earned = y * lead_time_portion
@@ -107,6 +104,9 @@ def function(issue_date,start_date,end_date,request_date,prd_grp_fin):
             earned = lead_time_portion + startday_portion + duration_portion/duration*(time_used-lead_time)
     
     elif prd_grp_fin == "Ticket":
+        duration_portion=0
+        lead_time_portion = 1-duration_portion-startday_portion
+        
         if time_used<lead_time:
             x = time_used/lead_time
             y = (895.43283*x**10 - 2973.34742*x**9 + 3160.22821*x**8 - 
