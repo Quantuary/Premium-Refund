@@ -1,5 +1,6 @@
 # Premium Refund Calculator
-This calculator accurately calculate the unearned premium based on **SEVEN** input parameters by applying the actuarial reserving method. **SIX** out of **SEVEN** parameters can be found in the database and one required manual input from the end user.
+This calculator accurately calculates the unearned premium based on **SEVEN** input parameters by applying the actuarial reserving method.
+**SIX** out of **SEVEN** parameters can be found in the database and one required manual input from the end-user.
 
 ### Table of Contents
 <details>
@@ -22,7 +23,7 @@ This calculator accurately calculate the unearned premium based on **SEVEN** inp
 
 ## Running RESTful API
 ### Prerequisites
-You must have python3.7.4 and above install. Other required packages can be aquired via:<br>
+You must have python3.7.4 and above install. Other required packages can be acquired via:<br>
 `pip install -r requirements.txt`<br>
 
 To run the service:<br>
@@ -41,11 +42,11 @@ The service take a json post request and returned the refund amount. The data **
 Example to post a request via python is in `request.py`.
 
 ### Definition of Parameters:
-1. `premium`      - The original GWP/Premmium charged to the policyholders/customers.
+1. `premium`      - The original GWP/Premium charged to the policyholders/customers.
 2. `issue_date`   - The date when the policy is underwritten.
 3. `start_date`   - The initial start date of the trip/journey.
-4. `end_date`     - The expiry date of the policy or when the policy become ineffective.
-5. `request_date` - The date in which refund begain to take effect from.
+4. `end_date`     - The expiry date of the policy or when the policy becomes ineffective.
+5. `request_date` - The date in which refund begins to take effect.
 6. `prd_grp_fin`  - Segmentation information provided by B.I.
 7. `policy_id`    - The identifying id for the request policy. (This is for logging and debugging purpose)
 
@@ -57,12 +58,12 @@ All necessary function for calculation is in `calculator.py`.<br>
 
 ### Summary
 When a policy is issued, the premium collected is earned on the term of the policy until it expired.
-The eanring has a unique pattern according to the risk involved within the policy term.
+The earning has a unique pattern according to the risk involved within the policy term.
 
-The reserving actuary has came out with a unique earning pattern for each `Product Group` to reflect each homogenous segment.
-With this unique pattern we can indentified how much risk has expired or earned and how much is still in effect.
-When a refund is needed we can safely refund the portion that hasn't expired or earned yet.
-Hence the porportion of refund is just `1-earned`.
+The reserving actuary has come out with a unique earning pattern for each `Product Group` to reflect each homogenous segment.
+With this unique pattern, we can identify how much risk has expired or earned and how much is still in effect.
+When a refund is needed, we can safely refund the portion that hasn't expired or earned yet.
+Hence the proportion of refund is just `1-earned`.
 
 <ins>The earned calculation are made up of :</ins>
 
@@ -71,7 +72,7 @@ Hence the porportion of refund is just `1-earned`.
 3. Lead time portion
 
 ### Start Day portion
-The start day portion are constant set by the reserving actuary as:
+The start day portion is a constant set by the reserving actuary as:
 
 | Product Group Finance | Start Day portion |
 | --------------------- | ----------------- |
@@ -83,19 +84,18 @@ The start day portion are constant set by the reserving actuary as:
 
 
 ### Trip Duration portion
-Trip duration portion can either be earned on a pro-rata linear scale or on a log scale.
-The general rule of thumb is to use log scale when trip duration is relatively long as compare to lead time. 
-Vice-versa on a linear scale when trip duration is relatively short as compare to lead time.
+Trip duration portion can either be earned on a pro-rata linear scale or a log scale.
+The general rule of thumb is to use log scale when the trip duration is relatively long as compared to lead time; vice-versa on a linear scale when the trip duration is relatively short as compared to lead time.
 The exact threshold can be found in the `calculator.py` which follows the reserving document.
 
 ### Lead Time portion
-Lead time portion are calculated using a special formula:
+Lead time portion is calculated using a special formula:
 
 ![y](y.png)
 
-where coeficient n can be found in the documentation.
+where the coeficient n can be found in the documentation.
 
-##### *Please contact the actuarial reserving team if you required a copy of the documentation.*
+##### *Please contact the actuarial reserving team if you require a copy of the documentation.*
 
 
 
