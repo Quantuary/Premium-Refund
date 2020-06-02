@@ -91,7 +91,7 @@ The exact threshold can be found in the `calculator.py` which follows the reserv
 ### Lead Time portion
 Lead time portion are calculated using a special formula:
 
-<img src="https://latex.codecogs.com/gif.latex?y = \frac{e^{nx}-1}{e^n-1} "/>
+<img src="https://latex.codecogs.com/gif.latex?y=\frac{e^{nx}-1}{e^n-1} "/>
 
 where coeficient n can be found in the documentation.
 
