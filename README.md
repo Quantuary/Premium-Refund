@@ -15,7 +15,7 @@ This calculator accurately calculate the unearned premium based on **SEVEN** inp
 
 
 ## Running RESTful API
-###Prerequisites
+### Prerequisites
 You must have python3.7.4 and above install. Other required packages can be aquired via:<br>
 `pip install -r requirements.txt`<br>
 
