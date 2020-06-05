@@ -7,7 +7,8 @@ This calculator accurately calculates the unearned premium based on **SEVEN** in
     <summary>click to expand</summary>
     
 * [Running RESTful API](#running-restful-api)
-	* [Prerequisites](#prerequisites)
+	* [1. Run directly on python](#1-run-directly-on-python)
+	* [2. Run using docker container](#2-run-using-docker-container)
 	* [Data format](#data-format)
     * [Definition of Parameters](#definition-of-parameters)
 * [Running Web Application](#running-Web-application)
@@ -22,22 +23,31 @@ This calculator accurately calculates the unearned premium based on **SEVEN** in
 
 
 ## Running RESTful API
-### Prerequisites
+The service on a  docker container or directly via python.
+### 1. Run directly on python
 You must have python3.7.4 and above install. Other required packages can be acquired via:<br>
 `pip install -r requirements.txt`<br>
 
 To run the service:<br>
-`python RESTful_API.py`
+`python run.py`
+
+### 2. Run using docker container
+First build the docker image by `docker build -t <image name> .`. 
+Then simple run `docker run -p <port to map>:5000 <image name>`.
+
+
 
 ### Data format
 The service take a json post request and returned the refund amount. The data **must** be in the the following structure:<br>
-`{"premium"   : $$$.$$,`<br>
-`'issue_date'   : 'yyyy-mm-dd HH:MM:SS',`<br>
-`'start_date'   : 'yyyy-mm-dd HH:MM:SS',`<br>
-`'end_date'     : 'yyyy-mm-dd HH:MM:SS',`<br>
-`'request_date' : 'yyyy-mm-dd HH:MM:SS',`<br>
-`'prd_grp_fin'  : 'E-comm',`<br>
-`'policy_id'    : 'XXXXX'}`<br>
+```
+{"premium"     : $$$.$$,
+'issue_date'   : 'yyyy-mm-dd HH:MM:SS',
+'start_date'   : 'yyyy-mm-dd HH:MM:SS',
+'end_date'     : 'yyyy-mm-dd HH:MM:SS',
+'request_date' : 'yyyy-mm-dd HH:MM:SS',
+'prd_grp_fin'  : 'E-comm',
+'policy_id'    : 'XXXXX'}
+```
 
 Example to post a request via python is in `request.py`.
 
@@ -49,9 +59,6 @@ Example to post a request via python is in `request.py`.
 5. `request_date` - The date in which refund begins to take effect.
 6. `prd_grp_fin`  - Segmentation information provided by B.I.
 7. `policy_id`    - The identifying id for the request policy. (This is for logging and debugging purpose)
-
-## Running Web Application
-`python webapp.py`
 
 ## Calculation Methodology
 All necessary function for calculation is in `calculator.py`.<br>
