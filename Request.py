@@ -1,6 +1,6 @@
 import requests
 
-url = 'http://localhost:5001/calculate_api'
+url = 'http://localhost:5000/calculate_api'
 
 r = requests.post(url,json={
                 'premium'      : 250,
