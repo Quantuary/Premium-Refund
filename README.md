@@ -103,10 +103,7 @@ Lead time portion is calculated using a special formula:
 where the coeficient n can be found in the documentation.
 
 ##### *Please contact the actuarial reserving team if you require a copy of the documentation.*
-
-
-
-
-
-
-
+## 
+<h6 align="center">
+&copy; Quantuary 2020
+</h6>
