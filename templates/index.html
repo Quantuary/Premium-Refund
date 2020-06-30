@@ -9,7 +9,8 @@
 </head>
 
 <body>
- <div class="login">
+<div class='row'>
+ <div class="column1">
 	<h1>Refund Calculator</h1>
 
      <!-- Main Input For Receiving Query to our ML -->
@@ -46,15 +47,19 @@
 			
         <button type="submit" class="btn btn-primary btn-block btn-large">Calculate</button>
     </form>
-
-   <br>
-   <br>
-   {{ refund_amount }} 
-   <br>
-   <br>
-   {{data_dump}}
+   
  </div>
-
+ <div class="column2">
+	 {{premium_refund }}
+	 <br><br> 
+	 {{ policy_id }} <br>
+	 {{ original_premium }} <br> 
+	 {{ commission }} <br>
+	 {{ issue_date }} <br>
+	 {{ start_date }} <br>
+	 {{ end_date }}
+	  </div>
+</div>
 
 </body>
 </html>

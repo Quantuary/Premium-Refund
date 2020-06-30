@@ -5,8 +5,6 @@ Created on Tue May 12 15:58:13 2020
 
 @author: marcus
 """
-import os
-os.chdir(r"/home/marcus/Documents/Premium-Refund-master")
 from flask import Flask, request, render_template, jsonify
 from flask_restful import Resource, Api
 from datetime import datetime
@@ -28,9 +26,9 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
            commission = float(commission)
 
        if request_date>end_date:
-           msg='Sorry, your requested date is after policy expired! No Premium is refunded'  
+           msg={'error' : 'Sorry, your requested date is after policy expired! No Premium is refunded'}  
        elif request_date<issue_date:
-           msg='You cannot request a refund prior to the policy issued date'  
+           msg={'error' : 'You cannot request a refund prior to the policy issued date' } 
        else:    
             earned = cal.function(issue_date,start_date,end_date,request_date,prd_grp_fin)
             Premium_refunded = round(premium*(1-earned),2)
@@ -53,7 +51,8 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
                    'PREMIUM_REFUND'     : Premium_refunded,
                    'RETURNED_COMMISSION': returned_commission, 
                    'REFUND_TYPE'        : refund_type,
-                   'PROCESS_DATE'       : datetime.now()
+                   'PROCESS_DATE'       : datetime.now(),
+                   'error'              : None
                     }
             
    except:
@@ -81,9 +80,19 @@ def calculate():
             
     msg = compute(request_date,prd_grp_fin,policy_id, issue_date=issue_date, end_date=end_date, start_date=start_date, premium=premium, commission=commission)
     
-    return render_template('index.html', 
-                           #refund_amount='Refund Amount ${}'.format(msg['premium refunded']),
-                                          data_dump = msg)
+    return render_template('index.html', premium_refund = 'Premium refunded : ${}'.format(msg['PREMIUM_REFUND']),
+                           policy_id        = 'Policy id : %s' %(msg['POLICY_ID']),
+                           original_premium = 'Original Premium : ${}'.format(msg['ORIGINAL_PREMIUM']),
+                           commission = 'Commision : ${}'.format(msg['COMMISSION']),
+                           issue_date        = 'Issue date: %s' %(msg['ISSUE_DATE']),
+                           start_date        = 'Start date: %s' %(msg['START_DATE']),
+                           end_date        = 'End date: %s' %(msg['END_DATE']),
+                           
+                           
+                           
+                           error = str(msg['error'])
+                           )
+
 
 class calculate_api(Resource):
     def post(self):
