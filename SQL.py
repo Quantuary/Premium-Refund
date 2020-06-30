@@ -49,7 +49,7 @@ def retrieve(policy_id):
         return issue_date, end_date, start_date, premium, commission
 
 def injection(msg):
-    connection = cx_Oracle.connect("actuary","as1acup_aus2win", cx_Oracle.makedsn("auwphprx-scan.maau.group",1521,"Dwin"))
+    connection = cx_Oracle.connect("actuary","xxxx", cx_Oracle.makedsn("auwphprx-scan.maau.group",1521,"Dwin"))
     cursor=connection.cursor()
 
     column_str = ','.join(list(msg.keys()))
