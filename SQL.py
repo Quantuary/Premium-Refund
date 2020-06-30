@@ -10,7 +10,7 @@ import cx_Oracle
 import pandas as pd
 
 def retrieve(policy_id):
-    connection = cx_Oracle.connect("actuary","XXXX", cx_Oracle.makedsn("auwphprx-scan.maau.group",1521,"Dwin"))
+    connection = cx_Oracle.connect("actuary","xxxxxx", cx_Oracle.makedsn("auwphprx-scan.maau.group",1521,"Dwin"))
 
     p_master = pd.read_sql_query(
     '''
@@ -47,4 +47,18 @@ def retrieve(policy_id):
         else:
             premium = calculated_premium
         return issue_date, end_date, start_date, premium, commission
+
+def injection(msg):
+    connection = cx_Oracle.connect("actuary","as1acup_aus2win", cx_Oracle.makedsn("auwphprx-scan.maau.group",1521,"Dwin"))
+    cursor=connection.cursor()
+
+    column_str = ','.join(list(msg.keys()))
+    insert_str = ','.join([':'+each for each in list(msg.keys())])
+    final_str = "INSERT INTO %s (%s) VALUES (%s)" % \
+    ("ML_REFUND",column_str,insert_str)
     
+    cursor.execute(final_str,list(msg.values()))
+    
+    connection.commit()
+    cursor.close()
+    connection.close()

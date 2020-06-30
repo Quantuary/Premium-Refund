@@ -34,17 +34,19 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
             Premium_refunded = round(premium*(1-earned),2)
             returned_commission = round(commission *(1-earned),2)
             
-            if Premium_refunded < round(premium,2):
+            if Premium_refunded == round(premium,2):
                 refund_type = 'partial refund'
+            elif Premium_refunded == 0:
+                refund_type = 'no refund'
             else :
-                refund_type = 'full refund'
+                refund_type = 'partial refund'
             
             msg = {'POLICY_ID'          : policy_id,
                    'ISSUE_DATE'         : issue_date,
                    'START_DATE'         : start_date,
                    'END_DATE'           : end_date,
                    'REQUEST_DATE'       : request_date,
-                   'PRD_GRP_FIN'        : prd_grp_fin,
+                   'CAL_METHOD'         : prd_grp_fin,
                    'ORIGINAL_PREMIUM'   : premium,
                    'COMMISSION'         : commission,
                    'REFUND_PERCENT'     : (1-earned),
@@ -91,9 +93,10 @@ def calculate():
                                start_date       = 'Start date: %s' %(msg['START_DATE']),
                                end_date         = 'End date: %s' %(msg['END_DATE']),
                                request_date     = 'Request date: %s' %(msg['REQUEST_DATE']),
-                               prd_grp_fin      = 'Calculation method : %s' %(msg['PRD_GRP_FIN']),
+                               prd_grp_fin      = 'Calculation method : %s' %(msg['CAL_METHOD']),
                                process_date     = 'Process date: %s' %(msg['PROCESS_DATE']),
                                )
+        SQL.injection(msg)
     except:
         html = render_template('index.html', error=msg)
     
@@ -104,11 +107,11 @@ class calculate_api(Resource):
     def post(self):
         data = request.get_json(force=True)
         policy_id = data['policy_id']
-        premium = data['premium'] or None
-        commission = data['commission'] or None
-        issue_date = data['issue_date'] or None
-        start_date = data['start_date'] or None
-        end_date = data['end_date'] or None
+        premium = data['premium']
+        commission = data['commission'] 
+        issue_date = data['issue_date'] 
+        start_date = data['start_date'] 
+        end_date = data['end_date'] 
         request_date = datetime.strptime(data['request_date'],'%Y-%m-%d')
         prd_grp_fin = data['prd_grp_fin']
         
