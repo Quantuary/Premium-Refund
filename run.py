@@ -26,9 +26,9 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
            commission = float(commission)
 
        if request_date>end_date:
-           msg={'error' : 'Sorry, your requested date is after policy expired! No Premium is refunded'}  
+           msg='Sorry, your requested date is after policy expired! No Premium is refunded'
        elif request_date<issue_date:
-           msg={'error' : 'You cannot request a refund prior to the policy issued date' } 
+           msg='You cannot request a refund prior to the policy issued date' 
        else:    
             earned = cal.function(issue_date,start_date,end_date,request_date,prd_grp_fin)
             Premium_refunded = round(premium*(1-earned),2)
@@ -43,7 +43,7 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
                    'ISSUE_DATE'         : issue_date,
                    'START_DATE'         : start_date,
                    'END_DATE'           : end_date,
-                   'REQUEST DATE'       : request_date,
+                   'REQUEST_DATE'       : request_date,
                    'PRD_GRP_FIN'        : prd_grp_fin,
                    'ORIGINAL_PREMIUM'   : premium,
                    'COMMISSION'         : commission,
@@ -51,8 +51,7 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
                    'PREMIUM_REFUND'     : Premium_refunded,
                    'RETURNED_COMMISSION': returned_commission, 
                    'REFUND_TYPE'        : refund_type,
-                   'PROCESS_DATE'       : datetime.now(),
-                   'error'              : None
+                   'PROCESS_DATE'       : datetime.now()
                     }
             
    except:
@@ -66,9 +65,7 @@ def home():
 
 @app.route('/calculate',methods=['POST'])
 def calculate():
-    '''
-    For rendering results on HTML GUI
-    '''
+  
     policy_id = request.form['policy_id']
     premium = request.form['premium'] or None
     commission = request.form['commission'] or None
@@ -80,18 +77,27 @@ def calculate():
             
     msg = compute(request_date,prd_grp_fin,policy_id, issue_date=issue_date, end_date=end_date, start_date=start_date, premium=premium, commission=commission)
     
-    return render_template('index.html', premium_refund = 'Premium refunded : ${}'.format(msg['PREMIUM_REFUND']),
-                           policy_id        = 'Policy id : %s' %(msg['POLICY_ID']),
-                           original_premium = 'Original Premium : ${}'.format(msg['ORIGINAL_PREMIUM']),
-                           commission = 'Commision : ${}'.format(msg['COMMISSION']),
-                           issue_date        = 'Issue date: %s' %(msg['ISSUE_DATE']),
-                           start_date        = 'Start date: %s' %(msg['START_DATE']),
-                           end_date        = 'End date: %s' %(msg['END_DATE']),
-                           
-                           
-                           
-                           error = str(msg['error'])
-                           )
+    try:
+        html =  render_template('index.html', premium_refund = 'Premium refunded : ${}'.format(msg['PREMIUM_REFUND']),
+                               policy_id        = 'Policy id : %s' %(msg['POLICY_ID']),
+                               original_premium = 'Original Premium : ${}'.format(msg['ORIGINAL_PREMIUM']),
+                               commission = 'Commision : ${}'.format(msg['COMMISSION']),
+
+                               refund_percent      = 'Percentage refund : {:.0%}'.format(msg['REFUND_PERCENT']),
+                               returned_commission = 'Return commission : ${}'.format(msg['RETURNED_COMMISSION']),
+                               refund_type         = 'Refund type : %s' %(msg['REFUND_TYPE']),
+                               
+                               issue_date       = 'Issue date: %s' %(msg['ISSUE_DATE']),
+                               start_date       = 'Start date: %s' %(msg['START_DATE']),
+                               end_date         = 'End date: %s' %(msg['END_DATE']),
+                               request_date     = 'Request date: %s' %(msg['REQUEST_DATE']),
+                               prd_grp_fin      = 'Calculation method : %s' %(msg['PRD_GRP_FIN']),
+                               process_date     = 'Process date: %s' %(msg['PROCESS_DATE']),
+                               )
+    except:
+        html = render_template('index.html', error=msg)
+    
+    return html
 
 
 class calculate_api(Resource):
