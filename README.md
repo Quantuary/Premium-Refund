@@ -13,7 +13,6 @@ This calculator accurately calculates the unearned premium based on **SEVEN** in
 * [RESTful API](#restful-api)  
 	* [Data format](#data-format)
     * [Definition of Parameters](#definition-of-parameters)
-* [Running Web Application](#running-Web-application)
 * [Calculation Methodology](#calculation-methodology)
 	* [Summary](#summary)
 	* [Start Day portion](#start-day-portion)
