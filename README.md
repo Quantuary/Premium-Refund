@@ -6,9 +6,11 @@ This calculator accurately calculates the unearned premium based on **SEVEN** in
 <details>
     <summary>click to expand</summary>
     
-* [Running RESTful API](#running-restful-api)
-	* [1. Run directly on python](#1-run-directly-on-python)
-	* [2. Run using docker container](#2-run-using-docker-container)
+* [Deployment](#deployment)
+	* [1. Run directly on terminal](#1-run-directly-on-terminal)
+	* [2. Run as docker container](#2-run-as-docker-container)
+* [Web Application](#web-application)
+* [RESTful API](#restful-api)  
 	* [Data format](#data-format)
     * [Definition of Parameters](#definition-of-parameters)
 * [Running Web Application](#running-Web-application)
@@ -21,44 +23,54 @@ This calculator accurately calculates the unearned premium based on **SEVEN** in
 
 </details>
 
+## Deployment
+The service can be deployed directly via terminal or run as a docker container.
 
-## Running RESTful API
-The service on a  docker container or directly via python.
-### 1. Run directly on python
-You must have python3.7.4 and above install. Other required packages can be acquired via:<br>
+### 1. Run directly on terminal
+You must have python3.7 or above install. Other required packages can be acquired via:<br>
 `pip install -r requirements.txt`<br>
 
 To run the service:<br>
 `python run.py`
 
-### 2. Run using docker container
-First build the docker image by `docker build -t <image name> .`. 
+### 2. Run as docker container
+Build the docker image using the docker file provided in this repository by `docker build -t <image name> .`. 
 Then simple run `docker run -p <port to map>:5000 <image name>`.
 
+## Web Application
+Go to your web browser and type in `localhost`:<br>
+<p align="center">
+  <img src="static/webapp.png">
+</p>
 
+## RESTful API
+The API take an input with a specific data format and return a json result.
+To achieve a batch processing, you may engage the API is a loop.<br>
+API url as follow: `http://localhost:500/calculate_api`<br>
+Example to post a request via python is in `request.py`.
 
 ### Data format
-The service take a json post request and returned the refund amount. The data **must** be in the the following structure:<br>
+The data **must** be in the the following structure:<br>
 ```
-{"premium"     : $$$.$$,
-'issue_date'   : 'yyyy-mm-dd HH:MM:SS',
-'start_date'   : 'yyyy-mm-dd HH:MM:SS',
-'end_date'     : 'yyyy-mm-dd HH:MM:SS',
-'request_date' : 'yyyy-mm-dd HH:MM:SS',
-'prd_grp_fin'  : 'E-comm',
-'policy_id'    : 'XXXXX'}
+{'policy_id'    : 'XXXXX'
+ "premium"      : '192.72',
+ "commission"   : '67.45', 
+ 'issue_date'   : 'yyyy-mm-dd',
+ 'start_date'   : 'yyyy-mm-dd',
+ 'end_date'     : 'yyyy-mm-dd',
+ 'request_date' : 'yyyy-mm-dd',
+ 'prd_grp_fin'  : 'Cancellation'}
 ```
-
-Example to post a request via python is in `request.py`.
 
 ### Definition of Parameters:
 1. `premium`      - The original GWP/Premium charged to the policyholders/customers.
-2. `issue_date`   - The date when the policy is underwritten.
-3. `start_date`   - The initial start date of the trip/journey.
-4. `end_date`     - The expiry date of the policy or when the policy becomes ineffective.
-5. `request_date` - The date in which refund begins to take effect.
-6. `prd_grp_fin`  - Segmentation information provided by B.I.
-7. `policy_id`    - The identifying id for the request policy. (This is for logging and debugging purpose)
+3. `commission`   - The original Commission charged on the policy.
+4. `issue_date`   - The date when the policy is underwritten.
+5. `start_date`   - The initial start date of the trip/journey.
+6. `end_date`     - The expiry date of the policy or when the policy becomes ineffective.
+7. `request_date` - The date in which refund begins to take effect a.k.a. cancellation request date.
+8. `prd_grp_fin`  - Segmentation information related to the product.
+9. `policy_id`    - The identifying id for the request policy. (This is for logging and debugging purpose)
 
 ## Calculation Methodology
 All necessary function for calculation is in `calculator.py`.<br>
@@ -97,8 +109,9 @@ The exact threshold can be found in the `calculator.py` which follows the reserv
 
 ### Lead Time portion
 Lead time portion is calculated using a special formula:
-
-![y](y.png)
+<p align="center">
+  <img src="static/y.png">
+</p>
 
 where the coeficient n can be found in the documentation.
 
