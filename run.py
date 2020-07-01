@@ -26,9 +26,9 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
            commission = float(commission)
 
        if request_date>end_date:
-           msg='Sorry, your requested date is after policy expired! No Premium is refunded'
+           msg='Sorry, your cancellation requested date is after the policy has expired! No Premium is refunded'
        elif request_date<issue_date:
-           msg='You cannot request a refund prior to the policy issued date' 
+           msg='You cannot request a refund prior to the policy is issued' 
        else:    
             earned = cal.function(issue_date,start_date,end_date,request_date,prd_grp_fin)
             Premium_refunded = round(premium*(1-earned),2)
