@@ -35,11 +35,11 @@ def compute(request_date,prd_grp_fin,policy_id, issue_date=None, end_date=None, 
             returned_commission = round(commission *(1-earned),2)
             
             if Premium_refunded == round(premium,2):
-                refund_type = 'partial refund'
+                refund_type = 'FULL REFUND'
             elif Premium_refunded == 0:
-                refund_type = 'no refund'
+                refund_type = 'NO REFUND'
             else :
-                refund_type = 'partial refund'
+                refund_type = 'PARTIAL REFUND'
             
             msg = {'POLICY_ID'          : policy_id,
                    'ISSUE_DATE'         : issue_date,
@@ -116,6 +116,7 @@ class calculate_api(Resource):
         prd_grp_fin = data['prd_grp_fin']
         
         msg = compute(request_date,prd_grp_fin,policy_id, issue_date=issue_date, end_date=end_date, start_date=start_date, premium=premium, commission=commission)
+        SQL.injection(msg)
         
         return jsonify(msg)
 
