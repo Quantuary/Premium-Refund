@@ -29,7 +29,10 @@ coef_log ={"E-comm"       : 0.988104113,
 
 
 def earn_LT(a,b,lead_time,time_used):
-    n = 2* np.log(
+    if lead_time==0:
+        y=0
+    else:
+        n = 2* np.log(
                 (1+np.sqrt(
                         1-4*np.exp(-a*lead_time-b)*(1-np.exp(-a*lead_time-b)) 
                     
@@ -37,7 +40,7 @@ def earn_LT(a,b,lead_time,time_used):
                  (2*np.exp(-a*lead_time-b))
                  )
     
-    y = (np.exp(n*time_used/lead_time)-1)/(
+        y = (np.exp(n*time_used/lead_time)-1)/(
                                             np.exp(n)-1)
     return y
 
@@ -93,13 +96,11 @@ def function(issue_date,start_date,end_date,request_date,prd_grp_fin):
         duration_portion = earn_duration(LT_TT,startday_portion,prd_grp_fin)
         lead_time_portion = max((1-duration_portion-startday_portion),0) # prevent leadtime portion going negative due to error
         
+
         y = earn_LT(a,b,lead_time,time_used)
-        if time_used<lead_time:
+        if time_used<=lead_time:
             earned = y * lead_time_portion
             
-        elif time_used<=lead_time:
-            earned =  y * lead_time_portion + startday_portion
-        
         elif time_used>lead_time:
             earned = lead_time_portion + startday_portion + duration_portion/duration*(time_used-lead_time)
     
