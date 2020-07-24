@@ -3,8 +3,7 @@ This calculator accurately calculates the unearned premium based on **SEVEN** in
 **SIX** out of **SEVEN** parameters can be found in the database and one required manual input from the end-user.
 
 ### Table of Contents
-<details>
-    <summary>click to expand</summary>
+
     
 * [Deployment](#deployment)
 	* [1. Run directly on terminal](#1-run-directly-on-terminal)
@@ -20,7 +19,6 @@ This calculator accurately calculates the unearned premium based on **SEVEN** in
     * [Lead Time portion](#lead-time-portion)
     
 
-</details>
 
 ## Deployment
 The service can be deployed directly via terminal or run as a docker container.
