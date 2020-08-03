@@ -86,8 +86,12 @@ def function(issue_date,start_date,end_date,request_date,prd_grp_fin):
     b = 1.756071526
     
     lead_time = (start_date-issue_date).days
-    duration = (end_date-start_date).days
+    duration = (end_date-start_date).days + 1 #duration is inclusive of both start and end dates
     time_used = (request_date-issue_date).days
+    
+    #when the request date is after the start date, the request date is the travel return date. Therefore the time used is inclusive of the request date
+    if request_date > start_date:
+      time_used += 1
     
     startday_portion = parm_startday[prd_grp_fin]
 
