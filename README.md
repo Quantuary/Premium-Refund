@@ -70,8 +70,13 @@ The data **must** be in the the following structure:<br>
 9. `policy_id`    - The identifying id for the request policy. (This is for logging and debugging purpose)
 
 ## Calculation Methodology
-All necessary function for calculation is in `calculator.py`.<br>
+All necessary function for calculation is in `calculator.py`. For example:<br>
+```
+import calculator as cal
 
+earned = cal.function(issue_date, start_Date, end_date, request_date, prd_grp_fin)
+Premium_refunded = round(Original_premium*(1-earned),2)
+```
 ### Summary
 When a policy is issued, the premium collected is earned on the term of the policy until it expired.
 The earning has a unique pattern according to the risk involved within the policy term.
