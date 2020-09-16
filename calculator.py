@@ -112,7 +112,7 @@ def function(issue_date,start_date,end_date,request_date,prd_grp_fin):
         duration_portion=0
         lead_time_portion = 1-duration_portion-startday_portion
         
-        if time_used<lead_time:
+        if time_used<=lead_time:
             x = time_used/lead_time
             y = (895.43283*x**10 - 2973.34742*x**9 + 3160.22821*x**8 - 
                  2683.4742*x**6 + 2399.6224*x**5 - 985.8713*x**4 + 208.5337*x**3 - 21.1719*x**2 + 0.9768*x)
